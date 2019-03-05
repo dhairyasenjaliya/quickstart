@@ -313,9 +313,17 @@ class Arr
      */
     public static function has($array, $keys)
     {
+        if (is_null($keys)) {
+            return false;
+        }
+
         $keys = (array) $keys;
 
-        if (! $array || $keys === []) {
+        if (! $array) {
+            return false;
+        }
+
+        if ($keys === []) {
             return false;
         }
 

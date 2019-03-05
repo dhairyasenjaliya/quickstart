@@ -767,7 +767,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param  mixed  $value
      * @return mixed
      */
-    public function firstWhere($key, $operator = null, $value = null)
+    public function firstWhere($key, $operator, $value = null)
     {
         return $this->first($this->operatorForWhere(...func_get_args()));
     }
@@ -1421,14 +1421,16 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param  callable|mixed  $callback
      * @return static
      */
-    public function reject($callback = true)
+    public function reject($callback)
     {
-        $useAsCallable = $this->useAsCallable($callback);
+        if ($this->useAsCallable($callback)) {
+            return $this->filter(function ($value, $key) use ($callback) {
+                return ! $callback($value, $key);
+            });
+        }
 
-        return $this->filter(function ($value, $key) use ($callback, $useAsCallable) {
-            return $useAsCallable
-                ? ! $callback($value, $key)
-                : $value != $callback;
+        return $this->filter(function ($item) use ($callback) {
+            return $item != $callback;
         });
     }
 
@@ -1888,19 +1890,6 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function count()
     {
         return count($this->items);
-    }
-
-    /**
-     * Add an item to the collection.
-     *
-     * @param  mixed  $item
-     * @return $this
-     */
-    public function add($item)
-    {
-        $this->items[] = $item;
-
-        return $this;
     }
 
     /**
