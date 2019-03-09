@@ -42,5 +42,11 @@ class HomeController extends Controller
         
         return view('addceleb',['celebs'=>$celebs]) ;
     }
+ 
+    public function showfact()
+    {
+        $facts = DB::select('select * from facts'); 
+        return view('managefact',['facts'=>$facts]) ;
+    }
 
 }

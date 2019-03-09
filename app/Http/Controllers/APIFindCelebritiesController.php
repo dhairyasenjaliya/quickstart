@@ -6,6 +6,7 @@ use Validator;
 use JWTFactory;
 use JWTAuth;
 use App\User;
+use App\Fact;
 use App\Celebrities;
 use Illuminate\Support\Facades\Auth;
 use DB; 
@@ -39,5 +40,8 @@ class APIFindCelebritiesController extends Controller
         $data = Celebrities::all('name','height','weight','networth');  
         return response()->json($data);         
     }
+
+
+   
 
 }

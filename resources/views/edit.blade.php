@@ -25,7 +25,7 @@
                         @csrf
                           <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Name:</label>
-                          <input type="text" name="name"  class="form-control" id="recipient-name" value= {{ $Celebrities->name }}>
+                          <textarea type="text" required name="name" class="form-control" id="recipient-name">{{ $Celebrities->name }} </textarea>
                         </div>
                         <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Height:</label>
@@ -37,11 +37,11 @@
                                 </div>
                                 <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Net Worth:</label>
-                                  <input type="text" required name="networth" value= {{ $Celebrities->networth }} class="form-control" id="recipient-name">
+                                  <textarea type="text" required name="networth" class="form-control" id="recipient-name">{{ $Celebrities->networth }} </textarea>
                                 </div>
                                  
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <a href="{{route('addceleb') }}" class="btn btn-danger">Cancle</a>
+                        <a href="{{route('addceleb') }}" class="btn btn-danger">Cancel</a>
                       </form>
                     </div>
                     <div class="modal-footer">                      

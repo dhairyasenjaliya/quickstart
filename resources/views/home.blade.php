@@ -15,6 +15,7 @@
                     @endif
                     Edit Data 
                     <a class="btn btn-primary" href="{{ route('addceleb') }}"> Celebrities </a>
+                    <a class="btn btn-danger" href="{{ route('managefact') }}"> Facts </a>
                 </div>
             </div>
         </div>

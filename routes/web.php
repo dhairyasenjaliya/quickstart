@@ -11,6 +11,7 @@
 |
 */
 use App\celebrities;
+use App\Fact;
 use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
@@ -27,8 +28,6 @@ Route::get('/edit', 'Operations@edit');
 
 Route::resource('crud', 'Operations');
 
-
-
 Route::any('/search',function(Request $request){
     $q = Input::get( 'q' ); 
     $celebs = Celebrities::where('name','LIKE','%'.$q.'%')->get();
@@ -39,3 +38,20 @@ Route::any('/search',function(Request $request){
         return view('/addceleb',['celebs'=>$celebs]);
     }    
 });
+
+
+Route::any('/searchfact',function(Request $request){
+    $q = Input::get( 'q' ); 
+    $facts = Fact::where('description','LIKE','%'.$q.'%')->get();
+    if(count($facts) > 0)
+        return view('/managefact',['facts'=>$facts]) ;
+    else{
+        $facts = Fact::all();
+        return view('/managefact',['facts'=>$facts]);
+    }    
+});
+
+
+Route::get('/managefact', 'HomeController@showfact')->name('managefact');
+Route::get('/factedit', 'FactOperations@edit');
+Route::resource('fact', 'FactOperations');

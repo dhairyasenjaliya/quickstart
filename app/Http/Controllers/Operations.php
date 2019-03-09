@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\celebrities;
 use DB;
@@ -17,7 +15,6 @@ class Operations extends Controller
         $celebs = DB::select('select * from celebrities');
         return view('addceleb',['celebs'=>$celebs]) ;
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +24,6 @@ class Operations extends Controller
     {
         // return view('crud.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -51,7 +47,6 @@ class Operations extends Controller
           $Celebrities->save();
           return redirect('/addceleb')->with('success', 'Celeb Added!!');
     }
-
     /**
      * Display the specified resource.
      *
@@ -62,7 +57,6 @@ class Operations extends Controller
     {
          
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -74,7 +68,6 @@ class Operations extends Controller
         $Celebrities = Celebrities::find($id);
         return view('/edit', compact('Celebrities'));         
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -100,7 +93,6 @@ class Operations extends Controller
     
           return redirect('/addceleb')->with('success', 'Celeb has been updated !!');
     }
-
     /**
      * Remove the specified resource from storage.
      *
