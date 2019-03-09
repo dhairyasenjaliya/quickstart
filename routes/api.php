@@ -27,4 +27,4 @@ Route::group(['middleware' => ['jwt.auth']], function() {
 
 Route::get('allcelebrities', 'APIFindCelebritiesController@all'); 
 
-Route::post('allfacts', 'APIFactController@getfact');
+Route::get('allfacts', 'APIFactController@getfact');
