@@ -8,7 +8,7 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
-
+use LaravelFCM\Message\Topics;
 
 class Operations extends Controller
 {
@@ -53,7 +53,22 @@ class Operations extends Controller
           ]);
           $Celebrities->save();
 
-     
+          $notificationBuilder = new PayloadNotificationBuilder('New Celebrities');
+          $notificationBuilder->setBody($request->name)
+                      ->setSound('default');
+          
+          $notification = $notificationBuilder->build();
+          
+          $topic = new Topics();
+          $topic->topic('celebrities');
+          
+          $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
+          
+          $topicResponse->isSuccess();
+          $topicResponse->shouldRetry();
+          $topicResponse->error();
+          
+          dd($notification);
 
           return redirect('/addceleb')->with('success', 'Celeb Added!!');
     }
