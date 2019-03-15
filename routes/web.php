@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\celebrities;
+use App\Celebrities;
 use App\Fact;
 use Illuminate\Support\Facades\Input;
 
