@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\celebrities;
+use App\Celebrities;
 use DB;
 
 use LaravelFCM\Message\OptionsBuilder;
@@ -66,9 +66,7 @@ class Operations extends Controller
           
           $topicResponse->isSuccess();
           $topicResponse->shouldRetry();
-          $topicResponse->error();
-          
-          dd($notification);
+          $topicResponse->error();           
 
           return redirect('/addceleb')->with('success', 'Celeb Added!!');
     }
