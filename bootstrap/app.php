@@ -14,7 +14,8 @@
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-
+class_alias(\LaravelFCM\Facades\FCM::class, 'FCM');
+class_alias(\LaravelFCM\Facades\FCMGroup::class, 'FCMGroup');
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
@@ -52,4 +53,7 @@ $app->singleton(
 |
 */
 
+
 return $app;
+
+$app->register(LaravelFCM\FCMServiceProvider::class);

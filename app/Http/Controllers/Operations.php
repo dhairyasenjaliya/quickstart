@@ -3,6 +3,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\celebrities;
 use DB;
+
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+use FCM;
+
+
 class Operations extends Controller
 {
     /**
@@ -45,6 +52,9 @@ class Operations extends Controller
             'networth'=> $request->get('networth')
           ]);
           $Celebrities->save();
+
+     
+
           return redirect('/addceleb')->with('success', 'Celeb Added!!');
     }
     /**
