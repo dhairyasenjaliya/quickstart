@@ -9,6 +9,7 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
+use LaravelFCM\Message\Topics;
 
 class FactOperations extends Controller
 {
@@ -39,6 +40,7 @@ class FactOperations extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+ 
     public function store(Request $request)
     {
         $request->validate([
@@ -47,16 +49,27 @@ class FactOperations extends Controller
           $Fact = new Fact([
             'description' => $request->get('description')            
           ]);
-          $Fact->save();
-
-
-          $notificationBuilder = new PayloadNotificationBuilder('Latest Facts');
-          $notificationBuilder->setBody('New Facts Added')->setSound('default');
+          $Fact->save();   
           
-          dd($notificationBuilder);
-
+          $notificationBuilder = new PayloadNotificationBuilder('New Fact');
+          $notificationBuilder->setBody($request->description)
+                      ->setSound('default');
+          
+          $notification = $notificationBuilder->build();
+          
+          $topic = new Topics();
+          $topic->topic('fact');
+          
+          $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
+          
+          $topicResponse->isSuccess();
+          $topicResponse->shouldRetry();
+          $topicResponse->error();
+ 
           return redirect('/managefact')->with('success', 'Fact Added!!');
     }
+
+ 
 
     /**
      * Display the specified resource.
