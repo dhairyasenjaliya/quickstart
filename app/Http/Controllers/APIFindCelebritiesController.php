@@ -10,6 +10,7 @@ use App\Fact;
 use App\Celebrities;
 use Illuminate\Support\Facades\Auth;
 use DB; 
+use Storage;
 
 class APIFindCelebritiesController extends Controller
 {
@@ -25,8 +26,8 @@ class APIFindCelebritiesController extends Controller
 
         $search = $request->get('search'); 
 
-        $query2 = Celebrities::where('name',$search)->distinct()->get(['name','height','weight','networth']);       
-
+        $query2 = Celebrities::where('name',$search)->distinct()->get(['name','image','height','weight','networth']);       
+        
         if($query2 == '[]'){  
             return response()->json('No Celeb Found !!');  
         }
@@ -37,11 +38,8 @@ class APIFindCelebritiesController extends Controller
 
     public function all(Request $request)
     {    
-        $data = Celebrities::all('name','height','weight','networth');  
-        return response()->json($data);         
-    }
-
-
-   
-
+        $data = Celebrities::all('name','image','height','weight','networth'); 
+        
+        return response()->json($data);  
+    } 
 }

@@ -37,12 +37,35 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <form method="post" action="{{ route('crud.store') }}">                               
+                              <form method="post" enctype="multipart/form-data" action="{{ route('crud.store') }}">  
                                 @csrf
                                 <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Name:</label>
                                   <input type="text" required name="name" class="form-control" id="recipient-name">
                                 </div>
+
+                                <label for="recipient-img" class="col-form-label">Image :</label>
+
+                                  <div class="file is-danger has-name is-boxed">
+                                      <label class="file-label">
+                                      
+                                        <input class="file-input" type="file" name="filenames">
+                                        <span class="file-cta">
+
+                                          <span class="file-icon">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                          </span>
+                                        
+                                          <span class="file-label">
+                                              Upload Image
+                                          </span>
+                                        </span>
+                                        <span class="file-name">
+                                        
+                                        </span>
+                                      </label>
+                                    </div>
+
                                 <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Height:</label>
                                   <input type="text" required name="height" class="form-control" id="recipient-name">
@@ -77,7 +100,7 @@
                       <a href="{{ route('home')}}" class="btn btn-warning">Home</a> 
                       <a href="{{ route('addceleb')}}" class="btn btn-primary">Manage</a> 
                                   
-                <div class="table-responsive">                            
+                <div class="table-responsive">  
              </div>
         </div>
  
@@ -86,6 +109,7 @@
       <tr>
         <th><strong>Id</strong></th>
         <th><strong>Name</strong></th>
+        <th><strong>Image</strong></th>
         <th><strong>Height</strong></th>
         <th><strong>Weight</strong></th>
         <th><strong>Net Worth</strong></th>
@@ -96,8 +120,15 @@
     <tbody>
     @foreach ($celebs as $celeb)
       <tr> 
-        <td>{{ $celeb->id }}</td>
+        <td>{{ $celeb->id }}</td>    
         <td>{{ $celeb->name }}</td>
+        <td>
+          @if($celeb->image!=null)
+            <div><img src="{{url($celeb->image)}}" height=80 width=80/></div> 
+          @else
+              <i>Upload Image</i>
+          @endif
+        </td> 
         <td>{{ $celeb->height }}</td> 
         <td>{{ $celeb->weight }}</td>  
         <td>{{ $celeb->networth }}</td> 

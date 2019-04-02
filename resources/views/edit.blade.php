@@ -12,21 +12,70 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>Edit Celebrities</h3></div>               
-                <div class="table-responsive">                            
+                <div class="card-header"><h3>Edit Celebrities</h3></div>   
+                <div class="table-responsive">  
              </div>
         </div>
     
         <div class="d-flex justify-content-center">
 
         <div class="modal-body">
-                    <form method="post" action="{{ route('crud.update', $Celebrities->id) }}">
+                    <form method="post"  enctype="multipart/form-data" action="{{ route('crud.update', $Celebrities->id) }}">
                         @method('PATCH')
                         @csrf
                           <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Name:</label>
                           <textarea type="text" required name="name" class="form-control" id="recipient-name">{{ $Celebrities->name }} </textarea>
                         </div>
+
+                     
+                          <label for="recipient-img" class="col-form-label">Image :</label>
+                          @if($Celebrities->image != null)
+                            <div ><img src="{{url($Celebrities->image)}}" height=80 width=80/></div> 
+                            <br>
+                            <div class="file is-danger has-name is-boxed">
+                                <label class="file-label">
+                                
+                                  <input class="file-input" type="file" name="filenames">
+                                  <span class="file-cta">
+
+                                    <span class="file-icon">
+                                      <i class="fas fa-cloud-upload-alt"></i>
+                                    </span>
+                                  
+                                    <span class="file-label">
+                                        Update
+                                    </span>
+                                  </span>
+                                  <span class="file-name">
+                                  
+                                  </span>
+                                </label>
+                              </div>
+                          @else 
+                            <div class="file is-danger has-name is-boxed">
+                                <label class="file-label">
+                                
+                                  <input class="file-input" type="file" name="filenames">
+                                  <span class="file-cta">
+
+                                    <span class="file-icon">
+                                      <i class="fas fa-cloud-upload-alt"></i>
+                                    </span>
+                                  
+                                    <span class="file-label">
+                                        Upload Image
+                                    </span>
+                                  </span>
+                                  <span class="file-name">
+                                  
+                                  </span>
+                                </label>
+                              </div>
+                          @endif
+                          
+                          <input type="checkbox" name="chkimage"  > No image 
+                        
                         <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Height:</label>
                                   <input type="text" required name="height" value= {{ $Celebrities->height }} class="form-control" id="recipient-name">

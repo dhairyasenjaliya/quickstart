@@ -16,6 +16,7 @@ class CreateCelebritiesTable extends Migration
         Schema::create('celebrities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('image')->nullable();
             $table->decimal('height');
             $table->decimal('weight');
             $table->string('networth');

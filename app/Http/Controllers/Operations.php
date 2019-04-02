@@ -9,6 +9,7 @@ use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
 use LaravelFCM\Message\Topics;
+use File;
 
 class Operations extends Controller
 {
@@ -19,7 +20,7 @@ class Operations extends Controller
      */
     public function index()
     {
-        $celebs = DB::select('select * from celebrities');
+        $celebs = Celebrities::all();
         return view('addceleb',['celebs'=>$celebs]) ;
     }
     /**
@@ -45,11 +46,25 @@ class Operations extends Controller
             'weight'=>'required',
             'networth'=>'required'
           ]);
+
+          $imageName = $request->file('filenames');
+            
+                if($imageName!=null)
+                {                    
+                    $extension = $imageName->getClientOriginalExtension();                    
+                    $imageName->move(public_path('images/celebrities/'), $request->name.'-'.$imageName->getClientOriginalName());    
+                    $name ='/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName(); 
+                    
+                }
+                else  
+                    $name = null;  
+
           $Celebrities = new Celebrities([
             'name' => $request->get('name'),
             'height'=> $request->get('height'),
             'weight'=> $request->get('weight'),
-            'networth'=> $request->get('networth')
+            'networth'=> $request->get('networth'),
+            'image' => $name
           ]);
           $Celebrities->save();
 
@@ -106,6 +121,26 @@ class Operations extends Controller
             'weight'=> 'required',
             'networth'=> 'required',
           ]);
+
+          $Celebrities = Celebrities::find($id);
+
+          $imageName = $request->file('filenames');
+
+          if($imageName!=null)
+          {
+              File::delete(public_path($Celebrities->image));
+              $extension = $imageName->getClientOriginalExtension(); 
+              $imageName->move(public_path('images/celebrities/'), $request->name.'-'.$imageName->getClientOriginalName());    
+              $name = '/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName() ; 
+              $Celebrities->image = $name ;
+              $Celebrities->save();
+          } 
+
+          if($request->chkimage == 'on'){
+              File::delete(public_path($Celebrities->image));
+              $Celebrities->image = null ;
+              $Celebrities->save();
+          } 
     
           $Celebrities = Celebrities::find($id);
           $Celebrities->name = $request->get('name');
@@ -125,6 +160,7 @@ class Operations extends Controller
     public function destroy($id)
     {
         $Celebrities = Celebrities::find($id);
+        File::delete(public_path($Celebrities->image));
         $Celebrities->delete();
         return redirect('/addceleb')->with('success', 'Celebrity Deleted Success!!');
     }
