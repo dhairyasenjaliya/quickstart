@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><h3>Edit Celebrities</h3></div>   
+                <div class="card-header"><h3>Edit Celebrities</h3></div>  
                 <div class="table-responsive">  
              </div>
         </div>
@@ -74,28 +74,39 @@
                               </div>
                           @endif
                           
-                          <input type="checkbox" name="chkimage"  > No image 
+                        <input type="checkbox" name="chkimage"  > No image 
+                        <br>
+
+                        <label for="recipient-name" class="col-form-label">Top :</label>
+                         Yes
+                          <input type="radio"  name="top"  value="true" 
+                          {{ $Celebrities->top  == '1' ? 'checked' : '' }} >
+                            No
+                          <input type="radio" name="top"  value="false" 
+                          {{ $Celebrities->top  == '0' ? 'checked' : '' }} >   
+                          <br>
                         
                         <div class="form-group">
-                                  <label for="recipient-name" class="col-form-label">Height:</label>
-                                  <input type="text" required name="height" value= {{ $Celebrities->height }} class="form-control" id="recipient-name">
-                                </div>
-                                <div class="form-group">
-                                  <label for="recipient-name" class="col-form-label">Weight:</label>
-                                  <input type="text" required name="weight" value= {{ $Celebrities->weight }} class="form-control" id="recipient-name">
-                                </div>
-                                <div class="form-group">
-                                  <label for="recipient-name" class="col-form-label">Net Worth:</label>
-                                  <textarea type="text" required name="networth" class="form-control" id="recipient-name">{{ $Celebrities->networth }} </textarea>
-                                </div>
+                            <label for="recipient-name" class="col-form-label">Height:</label>
+                            <input type="text" required name="height" value= {{ $Celebrities->height }} class="form-control" id="recipient-name">
+                        </div>
+                      
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Weight:</label>
+                            <input type="text" required name="weight" value= {{ $Celebrities->weight }} class="form-control" id="recipient-name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Net Worth:</label>
+                            <textarea type="text" required name="networth" class="form-control" id="recipient-name">{{ $Celebrities->networth }} </textarea>
+                        </div>
                                  
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{route('addceleb') }}" class="btn btn-danger">Cancel</a>
                       </form>
                     </div>
-                    <div class="modal-footer">                      
-                     
-                    </div>
+                <div class="modal-footer">  
+            </div>
         </div>
 </div>
 @endsection

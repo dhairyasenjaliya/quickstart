@@ -44,46 +44,58 @@ class Operations extends Controller
             'name'=>'required',
             'height'=>'required',
             'weight'=>'required',
-            'networth'=>'required'
-          ]);
-
-          $imageName = $request->file('filenames');
+            'networth'=>'required',
+            'image'=>'image'
+        ]);
             
-                if($imageName!=null)
-                {                    
-                    $extension = $imageName->getClientOriginalExtension();                    
-                    $imageName->move(public_path('images/celebrities/'), $request->name.'-'.$imageName->getClientOriginalName());    
-                    $name ='/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName(); 
-                    
-                }
-                else  
-                    $name = null;  
 
-          $Celebrities = new Celebrities([
+        $imageName = $request->file('filenames');
+            
+        if($imageName!=null)
+        {                    
+            $extension = $imageName->getClientOriginalExtension();  
+            $imageName->move(public_path('images/celebrities/'), $request->name.'-'.$imageName->getClientOriginalName()); 
+            $name ='/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName();  
+        }
+        else  
+            $name = null;   
+          
+ 
+        $Celebrities = new Celebrities([
             'name' => $request->get('name'),
             'height'=> $request->get('height'),
             'weight'=> $request->get('weight'),
             'networth'=> $request->get('networth'),
-            'image' => $name
-          ]);
-          $Celebrities->save();
+            'image' => $name 
+        ]);
+        $Celebrities->save();
 
-          $notificationBuilder = new PayloadNotificationBuilder('New Celebrities');
-          $notificationBuilder->setBody($request->name)
-                      ->setSound('default');
-          
-          $notification = $notificationBuilder->build();
-          
-          $topic = new Topics();
-          $topic->topic('celebrities');
-          
-          $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
-          
-          $topicResponse->isSuccess();
-          $topicResponse->shouldRetry();
-          $topicResponse->error();           
+        if($request->top == 'true'){ 
+            $Celebrities->top = true;
+            $Celebrities->save();
+         }  
+ 
+         if($request->top == 'false'){ 
+             $Celebrities->top = false;
+             $Celebrities->save();
+          } 
 
-          return redirect('/addceleb')->with('success', 'Celeb Added!!');
+        $notificationBuilder = new PayloadNotificationBuilder('New Celebrities');
+        $notificationBuilder->setBody($request->name)
+                    ->setSound('default');
+          
+         $notification = $notificationBuilder->build();
+          
+        $topic = new Topics();
+        $topic->topic('celebrities');
+          
+        $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
+          
+        $topicResponse->isSuccess();
+        $topicResponse->shouldRetry();
+        $topicResponse->error();           
+
+        return redirect('/addceleb')->with('success', 'Celeb Added!!');
     }
     /**
      * Display the specified resource.
@@ -104,7 +116,7 @@ class Operations extends Controller
     public function edit($id)
     {
         $Celebrities = Celebrities::find($id);
-        return view('/edit', compact('Celebrities'));         
+        return view('/edit', compact('Celebrities'));  
     }
     /**
      * Update the specified resource in storage.
@@ -115,39 +127,48 @@ class Operations extends Controller
      */
     public function update(Request $request, $id)
     {
-          $request->validate([
+        $request->validate([
             'name'=>'required',
             'height'=> 'required',
             'weight'=> 'required',
             'networth'=> 'required',
-          ]);
+        ]); 
+ 
+        $Celebrities = Celebrities::find($id);
+        $imageName = $request->file('filenames');
 
-          $Celebrities = Celebrities::find($id);
+        if($imageName!=null)
+        {
+            File::delete(public_path($Celebrities->image));
+            $extension = $imageName->getClientOriginalExtension(); 
+            $imageName->move(public_path('images/celebrities/'), $request->name.'-'.$imageName->getClientOriginalName());    
+            $name = '/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName() ; 
+            $Celebrities->image = $name ;
+            $Celebrities->save();
+        } 
 
-          $imageName = $request->file('filenames');
+        if($request->chkimage == 'on'){
+            File::delete(public_path($Celebrities->image));
+            $Celebrities->image = null ;
+            $Celebrities->save();
+        } 
 
-          if($imageName!=null)
-          {
-              File::delete(public_path($Celebrities->image));
-              $extension = $imageName->getClientOriginalExtension(); 
-              $imageName->move(public_path('images/celebrities/'), $request->name.'-'.$imageName->getClientOriginalName());    
-              $name = '/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName() ; 
-              $Celebrities->image = $name ;
-              $Celebrities->save();
-          } 
+        if($request->top == 'true'){ 
+           $Celebrities->top = true;
+           $Celebrities->save();
+        }  
 
-          if($request->chkimage == 'on'){
-              File::delete(public_path($Celebrities->image));
-              $Celebrities->image = null ;
-              $Celebrities->save();
-          } 
-    
-          $Celebrities = Celebrities::find($id);
-          $Celebrities->name = $request->get('name');
-          $Celebrities->height = $request->get('height');
-          $Celebrities->weight = $request->get('weight');
-          $Celebrities->networth = $request->get('networth');
-          $Celebrities->save();
+        if($request->top == 'false'){ 
+            $Celebrities->top = false;
+            $Celebrities->save();
+         } 
+
+        $Celebrities = Celebrities::find($id);
+        $Celebrities->name = $request->get('name');
+        $Celebrities->height = $request->get('height');
+        $Celebrities->weight = $request->get('weight');
+        $Celebrities->networth = $request->get('networth'); 
+        $Celebrities->save();
     
           return redirect('/addceleb')->with('success', 'Celeb has been updated !!');
     }

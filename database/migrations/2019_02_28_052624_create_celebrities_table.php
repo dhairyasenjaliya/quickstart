@@ -20,6 +20,7 @@ class CreateCelebritiesTable extends Migration
             $table->decimal('height');
             $table->decimal('weight');
             $table->string('networth');
+            $table->boolean('top')->default(false);
             $table->timestamps();
         });
     }

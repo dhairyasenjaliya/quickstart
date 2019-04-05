@@ -26,7 +26,7 @@ class APIFindCelebritiesController extends Controller
 
         $search = $request->get('search'); 
 
-        $query2 = Celebrities::where('name',$search)->distinct()->get(['name','image','height','weight','networth']);       
+        $query2 = Celebrities::where('name',$search)->distinct()->get();  
         
         if($query2 == '[]'){  
             return response()->json('No Celeb Found !!');  
@@ -38,8 +38,15 @@ class APIFindCelebritiesController extends Controller
 
     public function all(Request $request)
     {    
-        $data = Celebrities::all('name','image','height','weight','networth'); 
+        $data = Celebrities::all(); 
         
         return response()->json($data);  
     } 
+ 
+    public function topceleb(Request $request)
+    {    
+        $data = Celebrities::where('top',1)->limit(100)->get();  // take(100)         
+        return response()->json($data);  
+    } 
+    
 }

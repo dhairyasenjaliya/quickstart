@@ -67,6 +67,13 @@
                                     </div>
 
                                 <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label">Top Celeb :</label>                                 
+                                      Yes<input type="radio"  name="top"  value="true" >
+                                      No<input type="radio" name="top"  value="false"  >
+                                  <br>    
+                                </div>
+
+                                <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Height:</label>
                                   <input type="text" required name="height" class="form-control" id="recipient-name">
                                 </div>
@@ -113,6 +120,7 @@
         <th><strong>Height</strong></th>
         <th><strong>Weight</strong></th>
         <th><strong>Net Worth</strong></th>
+        <th><strong>Top</strong></th>
         <th><strong>Edit</strong></th>
         <th><strong>Delete</strong></th>
       </tr>
@@ -132,6 +140,7 @@
         <td>{{ $celeb->height }}</td> 
         <td>{{ $celeb->weight }}</td>  
         <td>{{ $celeb->networth }}</td> 
+        <td>{{ $celeb->top }}</td> 
         <td> 
         <a href="{{ route('crud.edit',$celeb->id)}}" class="btn btn-primary">Edit</a>      
             </td>
