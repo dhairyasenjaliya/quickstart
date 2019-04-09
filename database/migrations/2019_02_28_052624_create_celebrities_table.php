@@ -17,8 +17,8 @@ class CreateCelebritiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('image')->nullable();
-            $table->decimal('height');
-            $table->decimal('weight');
+            $table->string('height');
+            $table->string('weight');
             $table->string('networth');
             $table->boolean('top')->default(false);
             $table->timestamps();

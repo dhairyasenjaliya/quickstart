@@ -41,7 +41,7 @@
                                 @csrf
                                 <div class="form-group">    
                                   <label for="recipient-name" class="col-form-label">Description:</label>
-                                  <input type="text" required name="description" class="form-control" id="recipient-name">
+                                  <textarea required name="description" class="form-control" id="recipient-name"> </textarea>
                                 </div>
                                 
                                 <div class="modal-footer">
