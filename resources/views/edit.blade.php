@@ -88,12 +88,12 @@
                         
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Height:</label>
-                            <input type="text" required name="height" value= {{ $Celebrities->height }} class="form-control" id="recipient-name">
+                            <textarea type="text" required name="height"  class="form-control" id="recipient-name"> {{ $Celebrities->height }}</textarea>                            
                         </div>
                       
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Weight:</label>
-                            <input type="text" required name="weight" value= {{ $Celebrities->weight }} class="form-control" id="recipient-name">
+                            <textarea type="text" required name="weight"  class="form-control" id="recipient-name"> {{ $Celebrities->weight }}</textarea>
                         </div>
 
                         <div class="form-group">

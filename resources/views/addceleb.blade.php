@@ -74,12 +74,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                  <label for="recipient-name" class="col-form-label">Height:</label>
-                                  <input type="text" required name="height" class="form-control" id="recipient-name">
+                                  <label for="recipient-name" class="col-form-label">Height:</label> 
+                                  <input type="text" placeholder = "Enter in Meter" name="heightmeter" class="form-control" id="recipient-name"> 
+                                  <input type="text" placeholder = "Enter in Feet" name="heightfeet" class="form-control" id="recipient-name"> 
+                                  <input type="text" placeholder = "Enter in Inches" name="heightinches" class="form-control" id="recipient-name">
                                 </div>
                                 <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Weight:</label>
-                                  <input type="text" required name="weight" class="form-control" id="recipient-name">
+                                  <input type="text" name="weightkg" placeholder = "Enter in KG" class="form-control" id="recipient-name">
+                                  <input type="text" name="weightlbs" placeholder = "Enter in lbs"   class="form-control" id="recipient-name">
                                 </div>
                                 <div class="form-group">
                                   <label for="recipient-name" class="col-form-label">Net Worth:</label>

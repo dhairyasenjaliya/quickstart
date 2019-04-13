@@ -41,10 +41,13 @@ class Operations extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'height'=>'required',
-            'weight'=>'required',
+            'name'=>'required', 
             'networth'=>'required',
+            'heightmeter'=>'required',
+            'heightfeet'=>'required',
+            'heightinches'=>'required',
+            'weightlbs'=>'required',
+            'weightkg'=>'required',
             'image'=>'image'
         ]);
             
@@ -58,13 +61,13 @@ class Operations extends Controller
             $name ='/images/celebrities/'.$request->name.'-'.$imageName->getClientOriginalName();  
         }
         else  
-            $name = null;   
+            $name = null;  
           
  
         $Celebrities = new Celebrities([
             'name' => $request->get('name'),
-            'height'=> $request->get('height'),
-            'weight'=> $request->get('weight'),
+            'height'=> $request->get('heightmeter').'m / '. $request->get('heightfeet') .' Feet '.$request->get('heightinches').' inches',
+            'weight'=> $request->get('weightkg').'kg / '.$request->get('weightlbs').' lbs',
             'networth'=> $request->get('networth'),
             'image' => $name 
         ]);
