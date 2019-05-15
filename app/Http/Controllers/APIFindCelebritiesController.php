@@ -48,5 +48,13 @@ class APIFindCelebritiesController extends Controller
         $data = Celebrities::where('top',1)->limit(100)->get();  // take(100)         
         return response()->json($data);  
     } 
-    
+
+    public function add(Request $request)
+    {   
+        $data = json_encode($request->data );
+        $val = json_decode($data,true);
+ 
+        Celebrities::insert($val);
+        return "Added";
+    } 
 }

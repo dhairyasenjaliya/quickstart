@@ -30,3 +30,5 @@ Route::get('allcelebrities', 'APIFindCelebritiesController@all');
 Route::get('allfacts', 'APIFactController@getfact');
 
 Route::get('topcelebrities', 'APIFindCelebritiesController@topceleb');
+
+Route::post('addceleb','APIFindCelebritiesController@add');
