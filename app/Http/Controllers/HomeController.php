@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     public function addceleb()
     {
-        $celebs = DB::select('select * from celebrities');
+        $celebs = DB::table('celebrities')->paginate(15);
         // $celebs = Celebrities::all()->order_by('created_at', 'desc') ;
         // $celebs = DB::table('celebrities')->latest()->first();
         

@@ -109,12 +109,13 @@
                        
                       <a href="{{ route('home')}}" class="btn btn-warning">Home</a> 
                       <a href="{{ route('addceleb')}}" class="btn btn-primary">Manage</a> 
-                                  
-                <div class="table-responsive">  
+                       
+                <div class="table-responsive">   
              </div>
         </div>
  
     <table class="table table-striped table-hover table-condensed">
+    {{ $celebs->links() }} 
     <thead class="thead-dark" >
       <tr>
         <th><strong>Id</strong></th>
@@ -155,10 +156,10 @@
                 </form>
             </td>
       </tr>
+      
       @endforeach
     </tbody>   
-  </table>
-           
+  </table> 
                 </div>  
             </div>
         </div>
