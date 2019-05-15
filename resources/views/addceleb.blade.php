@@ -115,7 +115,7 @@
         </div>
  
     <table class="table table-striped table-hover table-condensed">
-    {{ $celebs->links() }} 
+     {{ $celebs->links()}}
     <thead class="thead-dark" >
       <tr>
         <th><strong>Id</strong></th>

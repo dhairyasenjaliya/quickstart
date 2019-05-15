@@ -30,7 +30,7 @@ Route::resource('crud', 'Operations');
 
 Route::any('/search',function(Request $request){
     $q = Input::get( 'q' ); 
-    $celebs = Celebrities::where('name','LIKE','%'.$q.'%')->get();
+    $celebs = Celebrities::where('name','LIKE','%'.$q.'%')->paginate(10);
     if(count($celebs) > 0)
         return view('/addceleb',['celebs'=>$celebs]) ;
     else{
