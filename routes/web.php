@@ -34,7 +34,7 @@ Route::any('/search',function(Request $request){
     if(count($celebs) > 0)
         return view('/addceleb',['celebs'=>$celebs]) ;
     else{
-        $celebs = Celebrities::all();
+        $celebs = Celebrities::paginate(10);
         return view('/addceleb',['celebs'=>$celebs]);
     }    
 });
