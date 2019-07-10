@@ -45,7 +45,7 @@ class APIFindCelebritiesController extends Controller
  
     public function topceleb(Request $request)
     {    
-        $data = Celebrities::where('top',1)->limit(100)->get();  // take(100)         
+        $data = Celebrities::where('top',1)->orderBy('updated_at','desc')->limit(100)->get();  // take(100)         
         return response()->json($data);  
     } 
 
