@@ -14,7 +14,7 @@ class APIFactController extends Controller
 {
     public function getfact(Request $request)
     {    
-        $data = Fact::all('description');
+        $data = Fact::all();
         return response()->json($data);         
     }
 }
